@@ -1,0 +1,43 @@
+Q44 card matching with notes
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int len_s = s.length();
+        int len_p = p.length();
+        if(len_s == 0 && len_p == 0) return true;
+        //dp[i][j] stands for whether s[0 .. i-1] and p[0...j-1] is matching or not
+        //P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
+        //P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
+        //the reason to see a p[i-1][j] here is do to for k = 0->i-1
+        //p[i][j] = (match 0 char) p[i][j-1] || (match 1 char in s) p[i-1][j-1] || (match 2 char in s) p[i-2][j-1]
+        //and p[i-1][j] = p[i-1][j-1] || p[i-2][j-1] || p[i-3][j-1] ... || p[0][j-1]
+        //optimize to use rotation array since in c++ int arr[actual num][] you have to use actual number
+        //for rotation arr , see it as one line of len_p + 1 elements, so you will have p[i-1] row when you are dealing with ith //row ,  so when calculating p[i][j]  from one_arr[j-1] is p[i][j-1] & one_arr[j] is p[i-1][j]
+        vector<int>dp(len_p + 1, 0);
+        vector<int>pre_dp(len_p + 1, 0);
+        pre_dp[0] = 1;
+       
+        // dp[i][0] && dp[0][j] == 0 has alreday been initialized 
+        //needs to init the first line and first col since you are consistently doing the i-1 & j-1 here 
+        for(int j = 1; j <= len_p; j++) {
+            pre_dp[j] = (p[j-1] == '*' && pre_dp[j-1]);
+        }
+        if(len_s == 0) return pre_dp[len_p];
+
+        for(int i = 1; i <= len_s; i++) {
+            for(int j = 1; j <= len_p; j++) {
+                 if(p[j-1] != '*')
+                    dp[j] = pre_dp[j-1] && (s[i-1] == p[j-1] || p[j-1] == '?');
+                 else {
+                    dp[j] = dp[j-1] || pre_dp[j];
+                 }
+            }
+            pre_dp = dp;
+            
+        }
+    
+        return dp[len_p];
+        
+    }
+};
