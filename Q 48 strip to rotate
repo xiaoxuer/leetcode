@@ -1,0 +1,25 @@
+    void rotate(vector<vector<int>>& matrix) { 
+        /*
+        int row = matrix.size();
+        if(row == 0) return;
+        
+        int layer = row / 2;
+        int start, end, offset, top, right, left, bottom, temp;
+        
+        for(int i = 0; i < layer; i++) {
+             int start = i;
+             int end  = row - 1 - i;
+             for(int j = start; j < end; j++) { ///last element 
+             //four segement as 0 -> end - 1, 0 - end - 
+                  offset = j - start;
+                  temp = matrix[i][j];
+                  
+                  matrix[i][j] = matrix[end - offset][i];
+                  
+                  matrix[end - offset][i] = matrix[end - i][end - offset];
+                  
+                  matrix[end - i][end - offset] = matrix[j][end - i];
+                  
+                  matrix[j][end - i] = temp;
+             }
+        }
