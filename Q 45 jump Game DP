@@ -1,0 +1,19 @@
+Q 45 Jump Game DP solution 
+
+int jump(vector<int>& nums) {
+        //dp , each element records how many steps needed to get to position i 
+        int size = nums.size();
+        vector<int> dp(size, 0);
+        int min_val;
+        dp[0] = 0;
+        
+        for(int i = 1; i < size; i++) {
+            min_val = INT_MAX;
+            for(int j = 0; j < i; j++) {
+                if(nums[j] >= (i - j))
+                    min_val = min(min_val, dp[j] + 1);
+            }
+            dp[i] = min_val;
+        }
+        return dp[size - 1];
+}
