@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+          vector<int> ret;
+        if(matrix.empty() || matrix[0].empty()) return ret;
+        int m = matrix.size(), n = matrix[0].size();
+        int nlvl = (min(m,n)+1)/2; // dealing with the odd and even cases 
+        for(int i=0; i<nlvl; i++) {
+            int lastRow = m-1-i;
+            int lastCol = n-1-i;
+            if(lastRow==i) {    // one row remain
+                for(int j=i; j<=lastCol; j++)
+                    ret.push_back(matrix[i][j]);
+            }
+            else if(lastCol==i) {   // one col remain
+                for(int j=i; j<=lastRow; j++)
+                    ret.push_back(matrix[j][i]);
+            }   
+            else {
+                for(int j=i; j<lastCol; j++) 
+                    ret.push_back(matrix[i][j]);
+                for(int j=i; j<lastRow; j++)
+                    ret.push_back(matrix[j][lastCol]);
+                for(int j=lastCol; j>i; j--)
+                    ret.push_back(matrix[lastRow][j]);
+                for(int j=lastRow; j>i; j--)
+                    ret.push_back(matrix[j][i]);
+            }
+        }
+     /* 
+      
+        vector<int> res;
+        int row = matrix.size();
+        if(row == 0)  return res;
+        int col = matrix[0].size();
+        int layer = (min(row, col) + 1) / 2; // only matters when min is a odd number 
+        int r_start, c_start, r_end, c_end;
+        
+        for(int i = 0; i < layer; i++) {
+             c_start = i;
+             c_end = col - 1 - i;
+             r_start = i;
+             r_end = row - 1 - i;
+             if(i == c_end) { 
+                    for(int j = r_start; j <= r_end; j++)
+                        res.push_back(matrix[j][c_end]);
+             } else if(i == r_end) {
+                    for(int j = c_start; j <= c_end; j++)
+                        res.push_back(matrix[r_end][j]);
+             } else { 
+             for(int m = c_start; m < c_end; m++)
+                res.push_back(matrix[r_start][m]);
+             for(int n = r_start; n < r_end; i++)
+                res.push_back(matrix[n][c_end]);
+             for(int m = c_end; m > 0; m--)
+                res.push_back(matrix[r_end][m]);
+             for(int n = r_end; n > 0; n--)
+                res.push_back(matrix[n][c_start]);
+             }
+        }
+        return res;
+        */
+    }
+};
