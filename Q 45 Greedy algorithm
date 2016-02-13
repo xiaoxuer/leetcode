@@ -1,0 +1,20 @@
+Q 45 Greedy Algorithm
+
+        //greedy algorithm 
+    int min_hop(vector<int>& nums) {
+        vector<int> A = nums;
+        int size = nums.size();
+        int maxx = 0, temp = 0, num = 0;
+        for(int i = 0; i < size; ) {
+             if(temp >= size - 1) break;
+             // i stands for location that is garenteed to be avaiable in the previous move 
+             while(i <= temp) {
+                 maxx = max(maxx, i + A[i]);
+                 ++i; //going to be start = end + 1, end = maxx 
+             }
+             num++;
+             temp = maxx;
+        }
+        return num;
+
+    }
