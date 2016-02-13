@@ -1,0 +1,8 @@
+
+//pay attention for two dimensional matrix swap
+    void rotate(vector<vector<int>>& matrix) { 
+        reverse(matrix.begin(), matrix.end());
+        for(int i = 0; i < matrix.size(); i++)
+            for(int j = i + 1; j < matrix[i].size(); j++)  //two dimension matrix swap, how to change from row , col to col, row //matrix
+                swap(matrix[i][j], matrix[j][i]);
+        
