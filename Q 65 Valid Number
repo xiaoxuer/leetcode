@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool isNumber(string s) {
+        //count the num of dots
+        //count the e 
+        //count negative number 
+        int len = s.length();
+        ///len-1 is the idx of the last elem in the string 
+        int i = 0, e = len -1;
+        while(i <= e && s[i] == ' ')
+            i++;
+        while(e >= i && s[e] == ' ')
+            e--;
+        if(s[i] == '+' || s[i] == '-')
+            i++;
+        bool num = false;
+        bool dot = false;
+        bool exp = false;
+        int  dig = 0;
+        
+        while(i <= e) {
+            if(s[i] <= '9' && s[i] >= '0') {
+                num = true;
+                if(!dot)  {
+                    dig *= 10;
+                    dig += s[i]-'0';
+                }
+            }
+            else if(s[i] == '.') { 
+                    if(exp || dot) return false;
+                    dot = true;
+            } else if (s[i] == 'e') {
+            //if there is alreday 'e' before current idx or there is no number before the i
+                    if(exp || num == false || i == e) return false;
+                    exp = true;
+            } else if(s[i] == '+' || s[i] == '-') { 
+                if(i > 0 && s[i-1] != 'e')
+                        return false;
+                if(i == e) return false;
+            }
+            else
+                return false;
+                
+            i++;
+        }
+        return num;
+    }
+};
