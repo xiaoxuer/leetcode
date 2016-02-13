@@ -14,6 +14,7 @@ public:
         /// have factorial[i-1] * k behind , and then deal with k % factorial[/////i-1]
         
         k--;
+        //here, from back to front, so when k == 1 , k will be kept till the first position
         for(int i = n; i >= 1; i--) {
              int j = k / factorial[i-1];
              k %= factorial[i-1];
