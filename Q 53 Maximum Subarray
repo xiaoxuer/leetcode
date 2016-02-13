@@ -1,3 +1,5 @@
+//1D dp 
+
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
