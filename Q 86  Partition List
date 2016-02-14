@@ -1,0 +1,44 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ///two list then merge
+        ListNode* cur_1, *cur_2;
+        ListNode* head_1, *head_2;
+        cur_1 = NULL;
+        cur_2 = NULL;
+        head_1 = NULL;
+        head_2 = NULL;
+        ListNode* cur = head;
+        
+        if(head == NULL) return head;
+        while(cur != NULL) {
+            if(cur->val < x) {
+                if(cur_1 == NULL) {
+                    head_1 = cur;
+                    cur_1 = cur;
+                } else {
+                    cur_1->next = cur;
+                    cur_1 = cur_1->next;
+                }
+            } else {
+                if(cur_2 == NULL) {
+                    head_2 = cur;
+                    cur_2 = cur;
+                } else {
+                    cur_2->next = cur;
+                    cur_2 = cur_2->next;
+                }
+            }
+            cur = cur->next;
+            if(cur_1)
+            cur_1->next = NULL;
+            if(cur_2)
+            cur_2->next = NULL;
+        }
+        if(cur_1 == NULL) return head_2;
+        else {
+            cur_1->next = head_2;
+            return head_1;
+        }
+    }
+};
