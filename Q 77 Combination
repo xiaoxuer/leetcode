@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void helper(vector<vector<int> >& res, vector<int>& sol, int n, int k, int s_idx) {
+        if(sol.size() == k) {
+            res.push_back(sol);
+            return;
+        }
+        for(int i = s_idx; i < n; i++) {
+            sol.push_back(i+1);
+            helper(res, sol, n, k, i + 1);
+            sol.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> res;
+        vector<int> sol;
+        helper(res, sol, n, k, 0);
+        return res;
+    }
+};
