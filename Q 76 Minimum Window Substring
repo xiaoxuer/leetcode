@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int len_s = s.length();
+        int len_t = t.length();
+        int start_idx = -1, end_idx = 0;
+        int total_cnt = 0;
+        string str;
+        unordered_map<int, int> target_table;
+        unordered_map<int, int> search_table;
+        int res = INT_MAX;
+        
+        for(int i = 0; i < len_t; i++)
+            target_table[t[i]] += 1;
+        
+        for(int i = 0; i < len_s; i++) {
+            if(target_table.find(s[i]) != target_table.end()) {
+                if(search_table[s[i]] < target_table[s[i]])
+                    total_cnt++;
+                //here good to operate directly in an unordered_map
+                search_table[s[i]]++;
+              
+                if(start_idx == -1) start_idx = i;
+            
+                end_idx = i;
+                ///point here is find a combination that has total_cnt == t_len first then further calculation
+                if(total_cnt == len_t) {
+                    while((target_table.find(s[start_idx]) == target_table.end()) || (search_table[s[start_idx]] > target_table[s[start_idx]])) { 
+                        if(target_table.find(s[start_idx]) != target_table.end())
+                            search_table[s[start_idx]]--;
+                        start_idx++;
+                    }
+                    if((end_idx - start_idx + 1) < res) {
+                        str = s.substr(start_idx, (end_idx - start_idx + 1));
+                        res = (end_idx - start_idx + 1);
+                    }
+              }
+              
+        }
+    }
+    return str;
+        
+    }
+};
