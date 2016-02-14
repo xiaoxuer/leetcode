@@ -1,5 +1,6 @@
 class Solution {
 public:
+///partition list create two lists 
     ListNode* partition(ListNode* head, int x) {
         ///two list then merge
         ListNode* cur_1, *cur_2;
