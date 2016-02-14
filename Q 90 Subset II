@@ -1,5 +1,8 @@
 class Solution {
 public:
+
+
+
     void helper(vector<vector<int>>& res, vector<int>& sol, int idx, vector<int>& nums) {
             int size = nums.size();
             if(idx >= size) return;
@@ -7,7 +10,7 @@ public:
                 if(idx > i && nums[i] ==  nums[i-1]) continue;
                 sol.push_back(nums[i]);
                 res.push_back(sol);
-                helper(res, sol, idx + 1, nums);
+                helper(res, sol, i + 1, nums);
                 sol.pop_back();
             }
     }
