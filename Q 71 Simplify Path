@@ -1,0 +1,65 @@
+class Solution {
+public:
+///should be able to use tokenize method & use '/' as splitter
+/* strtok example */
+/*
+1. use strtok to  tokenize the input string & convert to an array of char*
+int main ()
+{
+  char str[] ="- This, a sample string.";
+  char * pch;
+  printf ("Splitting string \"%s\" into tokens:\n",str);
+  pch = strtok (str," ,.-");
+  while (pch != NULL)
+  {
+    printf ("%s\n",pch);
+    pch = strtok (NULL, " ,.-");
+  }
+  return 0;
+}
+Edit & Run
+
+
+Output:
+
+Splitting string "- This, a sample string." into tokens:
+This
+a
+sample
+string
+
+2. char* to string 
+char* array_1;
+call string constructor to string  str(array_1);
+
+*/
+    string simplifyPath(string path) {
+            string ret, curDir;
+            vector<string> allDir;
+            
+            path.append("/");
+            for(int i = 0; i < path.size(); i++) {
+                    if(path[i] == '/') {
+                            if(curDir.empty())
+                                continue;
+                            else if(curDir == ".")
+                                curDir.clear();
+                            else if(curDir == "..") {
+                                 if(!allDir.empty()) 
+                                    allDir.pop_back();
+                                 curDir.clear();
+                            } else {
+                                 allDir.push_back(curDir);
+                                 //note here to clear 
+                                 curDir.clear();
+                            }
+                    } else {
+                         curDir.push_back(path[i]);
+                    }
+            }
+            for(int i = 0; i < allDir.size(); i++)
+                ret.append("/" + allDir[i]);
+            if(ret.empty()) ret = "/";
+            return ret;
+    }
+};
