@@ -1,0 +1,18 @@
+solution 1 count 
+solution 2 swap 
+
+// one pass in place solution
+
+void sortColors(int A[], int n) {
+    int j = 0, k = n - 1;
+    for (int i = 0; i <= k; ++i){
+        if (A[i] == 0 && i != j)
+            swap(A[i--], A[j++]);
+        else if (A[i] == 2 && i != k)
+            swap(A[i--], A[k--]);
+    }
+}
+
+key here is to update r & b when i > r && i < b 
+and also since the element swapped in may needs to be processed 
+ensure after update next iteration of for loop needs to evaluate i as well 
