@@ -8,3 +8,22 @@ public:
         }
     }
 };
+
+//binary search
+class Solution {
+public:
+    int mySqrt(int x) {
+        int start = 0, end;
+        //if x == 1   x / 2 + 1 will be able to cover
+        end = x / 2 < std::sqrt(INT_MAX) ? x / 2 + 1 : std::sqrt(INT_MAX);
+        //here need to let start & end move other wise it will do a infinite loop in the end
+        while(start <= end) {
+            int mid = start + (end - start) / 2;
+            int sqrt = mid * mid;
+            if(sqrt == x) return mid;
+            else if(sqrt < x) start = mid + 1;
+            else end = mid - 1;
+        }
+        return (start+end) / 2;
+    }
+};
