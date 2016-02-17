@@ -33,3 +33,11 @@ public:
         return dp[len_1][len_2];
     }
 };
+
+
+//space optimization
+solution 1 :
+use two len_2 + 1 arrays for previous line and current line 
+https://leetcode.com/discuss/10426/my-o-mn-time-and-o-n-space-solution-using-dp-with-explanation
+
+solution 2: 
