@@ -41,3 +41,5 @@ use two len_2 + 1 arrays for previous line and current line
 https://leetcode.com/discuss/10426/my-o-mn-time-and-o-n-space-solution-using-dp-with-explanation
 
 solution 2: 
+use a temp variable to store the dp[i][j-1] as previous 
+after dp[i][j] is calculated, save dp[i][j-1] to dp_one_line[j-1] and move to deal with [i][j+1] case 
