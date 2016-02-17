@@ -1,0 +1,22 @@
+solution 1
+BST for both left subtree & right subtree 
+
+class Solution {
+public:
+    bool helper(TreeNode* cur, TreeNode* &prev) {
+         if(cur == NULL) return true;
+         //deal with the left subtree
+         if(!helper(cur->left, prev)) return false;
+         //deal with the current node
+         //inorder serialization of the tree 
+         if(prev != NULL && prev->val >= cur->val) return false;
+         //current node, this is also when you are traversing at the same time 
+         prev = cur;
+         return helper(cur->right, prev);
+    }
+    
+    bool isValidBST(TreeNode* root) {
+        TreeNode* prev = NULL;
+        return helper(root, prev);
+    }
+};
