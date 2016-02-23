@@ -1,3 +1,4 @@
+/* top down version */
 public TreeNode sortedListToBST(ListNode head) {
     if(head == null)
         return null;
@@ -20,3 +21,12 @@ public TreeNode sortedListToBST(ListNode head) {
     root.right = sortedListToBST(slow.next);
     return root;
 }
+/* bottom up version  */
+1. use count or start_idx & end_idx to create the left subtree
+2. move the global linked list node pointer whenever a node in the linked list is in the tree 
+3. build the right subtree 
+
+note the way to move the node in linked list
+helper(TreeNode*& head) 
+    head = head->next;
+like this :)
