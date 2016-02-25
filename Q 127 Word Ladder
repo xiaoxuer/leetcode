@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+        int size = beginWord.length();
+        queue<pair<string, int> > que;
+        
+        que.push(make_pair(beginWord, 1));
+        while(!que.empty()) { 
+            auto cur = que.front();
+            que.pop();
+            if(cur.first == endWord)
+                return cur.second;
+            for(int i = 0; i < size; i++) {
+                string str = cur.first;
+                char orig = str[i];
+                for(int j = 0; j < 26; j++) {
+                    if(j == (orig - 'a'))
+                        continue;
+                    str[i] = 'a' + j;
+                    if(wordList.count(str))
+                    {
+                        que.push(make_pair(str, cur.second + 1));
+                        wordList.erase(str);
+                    }
+                }
+                
+            }
+        }
+        return 0;
+    }
+};
