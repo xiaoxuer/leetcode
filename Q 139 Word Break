@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool helper(string s, int start, unordered_set<string>& wordDict, vector<int>& dp) { 
+        int len = s.length();
+        bool res = false;
+        if(start == len)
+            return true;
+        if(dp[start] == 0)
+            return false;
+        if(dp[start] == 1)
+            return true;
+
+        for(int j = 1; j <= len - start; j++) {
+                string tmp = s.substr(start, j);
+                if(wordDict.count(tmp)) {
+                    res = helper(s, start + j, wordDict, dp);
+                    if(res == true) {
+                        dp[start] = 1;
+                        return true;
+                    }
+                }
+        }
+        dp[start] = 0;
+        return false;
+    }
+        
+    bool wordBreak(string s, unordered_set<string>& wordDict) {
+        //recursion + memorization 
+        int len = s.length();
+        vector<int> dp(len, -1);
+        //dp[i] stands for from idx i , whether you have a solution
+        return helper(s, 0, wordDict, dp);
+    }
+};
