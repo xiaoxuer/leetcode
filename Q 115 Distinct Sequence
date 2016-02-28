@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int helper(string s, string t, vector<vector<int>> &memorization, int s_idx, int t_idx) {
+         
+         int s_len = s.length();
+         int t_len = t.length();
+         if(t_idx >= t_len)
+            return 1;
+         if(s_idx >= s_len)
+            return 0;
+
+         if(memorization[s_idx][t_idx] != -1)
+            return memorization[s_idx][t_idx];
+            
+         int sum = 0;
+         int t_cur = t_len - t_idx;
+         int s_end = s_len - t_cur;
+         
+         for(int i = s_idx; i <= s_end; i++)
+         {
+              if(s[i] == t[t_idx])
+                    sum += helper(s, t, memorization, i + 1, t_idx + 1);
+         }
+         memorization[s_idx][t_idx] = sum;
+         return sum;
+    }
+
+    int numDistinct(string s, string t) {
+        int s_len = s.length();
+        int t_len = t.length();
+        //hint & tip here, use -1 instead of 0 since 0 is a possibile middle results we should avoid repeat calculation of it 
+        vector<vector<int>> memorization(s_len, vector<int>(t_len, -1));
+        int res = 0;
+        res = helper(s, t, memorization, 0, 0);
+        return res;
+    }
+};
