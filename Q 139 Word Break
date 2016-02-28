@@ -23,6 +23,9 @@ public:
         dp[start] = 0;
         return false;
     }
+    
+    
+    
         
     bool wordBreak(string s, unordered_set<string>& wordDict) {
         //recursion + memorization 
@@ -32,3 +35,8 @@ public:
         return helper(s, 0, wordDict, dp);
     }
 };
+
+
+//note : this 1D dp is also very interesting
+
+https://leetcode.com/discuss/18904/java-implementation-using-dp-in-two-ways
