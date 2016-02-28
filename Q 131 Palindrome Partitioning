@@ -1,3 +1,7 @@
+//pre-calculate whether dp[i][j] from idx i->j is a palinrome or not
+//http://bangbingsyb.blogspot.com/2014/11/leetcode-palindrome-partitioning-i-ii.html
+
+
 class Solution {
 public:
     bool is_valid(string s, int start_idx, int len) {
