@@ -1,0 +1,40 @@
+class MinStack {
+    stack<pair<int, int>> sta;
+    int cur_size;
+public: 
+    MinStack() {
+        cur_size = 0;
+        while(!sta.empty())
+            sta.pop();
+    }
+
+    void push(int x) {
+        int cur_min;
+        if(sta.empty())
+            sta.push(make_pair(x, x));
+        else { 
+            cur_min = sta.top().second;
+            cur_min = min(x, cur_min);
+            sta.push({x, cur_min});
+        }
+    }
+
+    void pop() {
+        if(!sta.empty())
+            sta.pop();
+    }
+
+    int top() {
+        int res = -1;
+        if(!sta.empty()) { 
+            res = sta.top().first;
+        }
+        return res;
+    }
+
+    int getMin() {
+        int min_val;
+        min_val = sta.top().second;
+        return min_val;
+    }
+};
