@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void save_to_result(vector<string>& res, int f_elem, int e_elem) {
+        if(f_elem == e_elem) { 
+            res.push_back(to_string(f_elem));
+        } else {
+            string tmp;
+            tmp.append(to_string(f_elem));
+            tmp.append("->");
+            tmp.append(to_string(e_elem));
+            res.push_back(tmp);
+        }
+    }
+    
+    vector<string> findMissingRanges(vector<int>& nums, int lower, int upper) {
+        int size = nums.size();
+        int f_elem = lower;
+        int e_elem;
+        vector<string> res;
+        for(int i = 0; i < size; i++) {
+            if(nums[i] == f_elem) {
+                f_elem++;
+            } else {
+                e_elem = nums[i] - 1;
+                save_to_result(res, f_elem, e_elem);
+                f_elem = nums[i] + 1;
+            }
+        }
+        if(f_elem == upper + 1) return res;
+        else {
+            save_to_result(res, f_elem, upper);
+            return res;
+        }
+    }
+};
