@@ -1,0 +1,19 @@
+class Solution {
+public:
+    static bool my_sort(int num1, int num2) {
+        string tmp1 = to_string(num1) + to_string(num2);
+        string tmp2 = to_string(num2) + to_string(num1);
+        return tmp1 > tmp2 ? true : false;
+    }
+    string largestNumber(vector<int>& nums) {
+        int size = nums.size();
+        string str;
+        sort(nums.begin(), nums.end(), my_sort);
+        
+        for(int i = 0; i < size; i++) {
+            str.append(to_string(nums[i]));
+            if(nums[i] == 0 && i == 0) return "0";
+        }
+        return str;
+    }
+};
