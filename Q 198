@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        ///dp[i] = max(dp[i-2], dp[i-3]) + nums[i];
+        //init to 2
+        int size = nums.size();
+        int dp[size];
+        int i;
+        int res = INT_MIN;
+        memset(dp, 0, sizeof(dp));
+        if(size == 0) return 0;
+        dp[0] = nums[0];
+        if(size == 1) return dp[0];
+        dp[1] = max(nums[0], nums[1]);
+        res = dp[1];
+        for(i = 2 ; i < size; i++) {
+             if(i == 2) 
+                dp[i] = dp[i-2] + nums[i];
+             else
+                dp[i] = max(dp[i-2], dp[i-3]) + nums[i];
+             res = max(res, dp[i]);
+            
+        }
+        return res;
+    }
+};
