@@ -1,0 +1,4 @@
+need a pointer to record the index of the array?
+you don't have to take care of this. The only thing is when you call read4() which reads 4 bytes into
+your buffer you might read more than you need, so you want to store those bytes in the structure, and 
+next time you call read will start from those stored bytes, then read more from the file.
