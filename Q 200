@@ -32,3 +32,6 @@ public:
         
     }
 };
+
+BFS solution: 
+use visited queue  & mark as it goes 
