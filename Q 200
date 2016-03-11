@@ -35,3 +35,6 @@ public:
 
 BFS solution: 
 use visited queue  & mark as it goes 
+
+Solution III  : convert 2D matrix to 1D 
+Union Find to Join 
