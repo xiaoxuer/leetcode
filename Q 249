@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<string>> groupStrings(vector<string>& strings) {
+        vector<vector<string>> res;
+        int len = strings.size();
+        unordered_map<int, vector<int>> hash_map;
+        for(int i = 0; i < len; i++) {
+            hash_map[strings[i].length()].push_back(i);
+        }
+        for(auto itr : hash_map) {
+            vector<string> vec;
+            int size = itr.second.size();
+            for(int i = 0 ; i < size; i++) {
+                 vec.push_back(strings[itr.second[i]]);
+            }
+            res.push_back(vec);
+        }
+        return res;
+    }
+};
