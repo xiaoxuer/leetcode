@@ -1,5 +1,6 @@
 class Solution {
 public:
+//key is to get the maximum of the possible profit that that ends with a certain idx
     int helper(vector<int>& nums, int start, int end) {
         int size = end - start + 1;
         
