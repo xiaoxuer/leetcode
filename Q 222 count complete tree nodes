@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int tree_height(TreeNode* root) {
+        if(root == NULL) return 0;
+        else
+            return max(tree_height(root->left), tree_height(root->right)) + 1;
+    }
+    bool helper(TreeNode* root, int s, int h, int& res) {
+        if(root == NULL || s > h) return true;
+        if(s == h) {
+             res++;
+             return true;
+        }
+        if(helper(root->left, s + 1, h, res) == false) return false;
+        if(helper(root->right, s + 1, h, res) == false) return false;
+        res++;
+        return true;
+    }
+    
+    int countNodes(TreeNode* root) {
+        int res = 0;
+        int height = tree_height(root);
+        helper(root, 1, height, res);
+        return res;
+    }
+};
