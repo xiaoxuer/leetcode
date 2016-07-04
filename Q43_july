@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        //the reason for reverse the two string at the beginning is to avoid one string is longer than the other and hard to operate 
+        int val1, val2;
+        std::reverse(num1.begin(), num1.end());
+        std::reverse(num2.begin(), num2.end());
+        
+        int size1 = num1.size();
+        int size2 = num2.size();
+        //here,  very important to init the result string
+        string res(size1 + size2 + 1, '0');
+        int car = 0;
+        int exist;
+        // create an array for carry ? 
+        for(int i = 0 ; i < size1; i++)
+        {
+            val1 = num1.at(i) - '0';
+            for(int j = 0; j < size2; j++)
+            { 
+                val2 = num2.at(j) -'0';
+                exist = res[i+j] - '0';
+                res[i+j] += (val1 * val2 + exist + car) % 10;
+                car = res[i+j] / 10;
+            }
+            if(car > 0)
+                res[i + j] += car;
+                
+        }
+        //reverse the string and remove the zeros at the beginning of the string 
+        std::reverse(res.begin(), res.end());
+        for(int start = 0 ;start < res.size(); start++) { 
+            if(res.at(start) != '0')
+                break;
+        }
+        if(start == res.size())
+            return 0;
+
+        return res.substr(start, res.size() - start);
+    }
