@@ -1,0 +1,42 @@
+lution {
+public:
+    int search_for_target(vector<int>& nums, int target, int start, int end) {
+        if(end < start)
+            return  INT_MAX;
+    
+        int mid = (start + end) / 2;
+        if(nums.at(mid) == target)
+            return mid;
+        else if (nums.at(mid) < target)
+            return search_for_target(nums, target, mid + 1, end);
+        else
+            return search_for_target(nums, target, start, mid -1);
+        
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int size = nums.size();
+        vector<int> results;
+        int index = search_for_target(nums, target, 0, (size -1));
+        if (index == INT_MAX)
+        {
+            results.push_back(-1);
+            results.push_back(-1);
+            return results;
+        }
+        int i = index;
+        
+        while(i>= 0 && nums.at(i) == target)
+            i--;
+        
+        results.push_back(++i);
+        
+        i = index;
+        while(i < size && nums.at(i) == target)
+            i++;
+        
+        results.push_back(--i);
+        return results;
+        /// this is a better solution , learn  how to search for the lower bound  and upper bound using binary search 
+      ///  http://fisherlei.blogspot.com/2013/01/leetcode-search-for-range.html
+    }
+};
