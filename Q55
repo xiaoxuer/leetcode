@@ -19,3 +19,18 @@ public:
         return true;
     }
 };
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int size = nums.size();
+        int target = nums[0];
+        int i = 0;
+        while(i <= target && i < size) {
+            if(target >= (size - 1)) return true;
+            target = max(target, nums[i] + i);
+            i++;
+        }
+        return false;
+    }
+};
