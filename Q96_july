@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int helper(vector<int>& cache, int num) {
+        if(cache[num] != -1) return cache[num];
+        int res = 0;
+        for(int i = 1; i <= num; i++) {
+            int val_left = helper(cache, i - 1);
+            int val_right = helper(cache, num - i);
+            res += val_left * val_right;
+        }
+        cache[num] = res;
+        return res;
+    }
+    int numTrees(int n) {
+        vector<int> cache(n + 1, -1);
+        cache[0] = 1;
+        cache[1] = 1;
+        cache[2] = 2;
+        return helper(cache, n);
+    }
+};
