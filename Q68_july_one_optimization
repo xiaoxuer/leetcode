@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<int> lut_1(n, 1);
+        vector<int> lut_2(n, 1);
+
+        for(int i = 1; i < m; i++)  {
+            for(int j = 1; j < n; j++) {
+                if(i % 2) {
+                    lut_2[j] = lut_1[j] + lut_2[j-1];
+                } else { 
+                    lut_1[j] = lut_2[j] + lut_1[j-1];
+                }
+            }
+        }
+        return m%2 ? lut_1[n-1] : lut_2[n-1];
+    }
+};
