@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canPermutePalindrome(string s) {
+        int size = s.length();
+        int cnt = 0;
+        unordered_map<char, int> hash_map;
+        for(int i = 0; i < size; i++) {
+            if(hash_map.find(s[i]) == hash_map.end())
+                hash_map[s[i]] = 0;
+             hash_map[s[i]]++;
+        }
+        for(auto it : hash_map) {
+             if(it.second % 2 == 1) {
+                cnt++;
+                if(cnt > 1) return false;
+             }
+        }
+        return true;
+    }
+};
