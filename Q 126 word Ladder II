@@ -1,0 +1,63 @@
+class Solution {
+public:
+    void bfs(unordered_map<string, vector<string>>& reverse_map, unordered_map<string, int>& distance, string start, string end,             unordered_set<string> &wordList) {
+        
+            queue<string> que;
+            que.push(start);
+            distance[start] = 1;
+            while(!que.empty()) {
+                string cur = que.front();
+                string str = cur;
+                int len = str.length();
+                for(int i = 0; i < len; i++) {
+                     char orig = str[i];
+                     for(int j = 0; j < 26; j++) {
+                          if(orig - 'a' == j)
+                            continue;
+                          /// use distacen map to ensure the minmum distance is recorded
+                          if(wordList.count(str) && (distance.find(str) == distance.end())) {
+                               que.push(str);
+                               distance[str] = distance[cur] + 1;
+                               reverse_map[str].push_back(cur);
+                          }
+                     }
+                     str[i] = orig;
+                }
+            }
+    }
+    
+    void dfs(vector<vector<string>> &res, vector<string>& path, string end, string start, unordered_map<string, int> &distance,         unordered_map<string, vector<string>> &reverse_map) {
+        // just like created an adjacent list of the words
+        if(end == start) {
+            path.push_back(start);
+            reverse(path.begin(), path.end());
+            res.push_back(path);
+            reverse(path.begin(), path.end()); // otherwise backtracking is going to remove the wrong element at the end
+            return;
+        }
+        if(reverse_map.find(start) !=  reverse_map.end()) {
+             path.push_back(start);
+             vector<string> adjacent = reverse_map[start];
+             for(int i = 0; i < adjacent.size(); i++) {
+                 if(distance[start] == (distance[adjacent[i]] + 1))
+                    dfs(res, path, end, adjacent[i], distance, reverse_map);
+             }
+             path.pop_back();
+        }
+    }
+
+    vector<vector<string>> findLadders(string beginWord, string endWord, unordered_set<string> &wordList) {
+        vector<vector<string>> res;
+        unordered_map<string, vector<string>> reverse_map;
+        unordered_map<string, int> distance;
+        
+        wordList.insert(beginWord);
+        wordList.insert(endWord);
+        
+        bfs(reverse_map, distance,beginWord, endWord, wordList);
+        vector<string> path;
+        //whether you need to pass in a level as a parameter to prevent processing circles in the graph ? 
+        dfs(res, path, endWord, beginWord, distance, reverse_map);
+        return res;
+    }
+};
